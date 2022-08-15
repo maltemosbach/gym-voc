@@ -52,6 +52,8 @@ class FetchEnv(robot_env.RobotEnv):
         self.distance_threshold = distance_threshold
         self.reward_type = reward_type
 
+        self.subgoal_pos = np.zeros([3, 3])
+
         super(FetchEnv, self).__init__(
             model_path=model_path,
             n_substeps=n_substeps,
@@ -102,6 +104,9 @@ class FetchEnv(robot_env.RobotEnv):
         # Apply action to simulation.
         utils.ctrl_set_action(self.sim, action)
         utils.mocap_set_action(self.sim, action)
+
+        # Set new subgoal positions
+        self.update_subgoals()
 
     def _get_obs(self):
         # positions
@@ -171,6 +176,8 @@ class FetchEnv(robot_env.RobotEnv):
     def _reset_sim(self):
         self.sim.set_state(self.initial_state)
 
+        self.subgoal_pos = np.zeros([3, 3])
+
         # Randomize start position of object.
         if self.has_object:
             object_xpos = self.initial_gripper_xpos[:2]
@@ -228,3 +235,16 @@ class FetchEnv(robot_env.RobotEnv):
 
     def render(self, mode="human", width=500, height=500):
         return super(FetchEnv, self).render(mode, width, height)
+
+    # Methods for hierarchical agents
+    def set_subgoal_pos(self, goals) -> None:
+        for idx in range(len(goals) - 1):
+            self.subgoal_pos[idx] = goals[idx].cpu().numpy()
+
+    def update_subgoals(self):
+        for subgoal_num in range(3):
+            x = self.subgoal_pos[subgoal_num, 0]
+            y = self.subgoal_pos[subgoal_num, 1]
+            z = self.subgoal_pos[subgoal_num, 2]
+            self.sim.data.set_mocap_pos(
+                "subgoal_" + str(subgoal_num + 1), [x, y, z])

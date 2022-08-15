@@ -50,15 +50,16 @@ def mocap_set_action(sim, action):
     constraint optimizer tries to center the welded body on the mocap.
     """
     if sim.model.nmocap > 0:
-        action, _ = np.split(action, (sim.model.nmocap * 7,))
-        action = action.reshape(sim.model.nmocap, 7)
+        action, _ = np.split(action, (1 * 7,))
+        action = action.reshape(1, 7)
 
         pos_delta = action[:, :3]
         quat_delta = action[:, 3:]
 
         reset_mocap2body_xpos(sim)
-        sim.data.mocap_pos[:] = sim.data.mocap_pos + pos_delta
-        sim.data.mocap_quat[:] = sim.data.mocap_quat + quat_delta
+
+        sim.data.mocap_pos[0, :] = sim.data.mocap_pos[0, :] + pos_delta
+        sim.data.mocap_quat[0, :] = sim.data.mocap_quat[0, :] + quat_delta
 
 
 def reset_mocap_welds(sim):
