@@ -123,16 +123,16 @@
 
 	<!-- Subgoal 1 -->
     <body name="subgoal_1" pos="0 0 0.05" mocap="true">
-      <site type="box" rgba="1 0 1 0.5" size=".05 .05 .05"/>
+      <site type="box" rgba="1 0 1 0.5" size=".02 .02 .02"/>
     </body>
 
     <!-- Subgoal 2  -->
     <body name="subgoal_2" pos="0 0 0.05" mocap="true">
-      <site type="box" rgba="1 1 0 0.5" size=".05 .05 .05"/>
+      <site type="box" rgba="1 1 0 0.5" size=".02 .02 .02"/>
     </body>
 
     <!-- Subgoal 3 -->
     <body name="subgoal_3" pos="0 0 0.05" mocap="true">
-      <site type="box" rgba="0 1 1 0.5" size=".05 .05 .05"/>
+      <site type="box" rgba="0 1 1 0.5" size=".02 .02 .02"/>
     </body>
 </mujoco>
