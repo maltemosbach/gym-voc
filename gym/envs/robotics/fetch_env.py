@@ -239,7 +239,7 @@ class FetchEnv(robot_env.RobotEnv):
     # Methods for hierarchical agents
     def set_subgoal_pos(self, goals) -> None:
         for idx in range(len(goals) - 1):
-            self.subgoal_pos[idx] = goals[idx].cpu().numpy()
+            self.subgoal_pos[idx] = goals[idx]
 
     def update_subgoals(self):
         for subgoal_num in range(3):
