@@ -69,10 +69,7 @@ class Box(Space):
         low_precision = _get_precision(self.low.dtype)
         high_precision = _get_precision(self.high.dtype)
         dtype_precision = _get_precision(self.dtype)
-        if min(low_precision, high_precision) > dtype_precision:
-            logger.warn(
-                "Box bound precision lowered by casting to {}".format(self.dtype)
-            )
+
         self.low = self.low.astype(self.dtype)
         self.high = self.high.astype(self.dtype)
 
