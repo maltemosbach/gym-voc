@@ -72,6 +72,11 @@ class FetchEnv(robot_env.RobotEnv):
         else:
             return -d
 
+    def compute_done(self, achieved_goal, goal, info):
+        # Compute distance between goal and the achieved goal.
+        d = goal_distance(achieved_goal, goal)
+        return d <= self.distance_threshold
+
     # RobotEnv methods
     # ----------------------------
 

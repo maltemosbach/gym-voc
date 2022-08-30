@@ -335,6 +335,13 @@ register(
 # Robotics
 # ----------------------------------------
 
+# Dummy environment
+register(
+    id="Dummy-v0",
+    entry_point="gym.envs.robotics:Dummy",
+    max_episode_steps=50,
+)
+
 
 def _merge(a, b):
     a.update(b)
